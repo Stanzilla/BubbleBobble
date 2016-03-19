@@ -5,6 +5,7 @@
 local settings = {
 	bg = {
 		texture = "Interface\\AddOns\\BubbleBobble\\textures\\background",
+		--texture = nil,
 		color = {0.11, 0.11, 0.12, 0.9},
 		tile = false,
 	},
@@ -17,9 +18,9 @@ local settings = {
 		bgTexture = "Interface\\AddOns\\BubbleBobble\\textures\\tailbg",
 		bdTexture = "Interface\\AddOns\\BubbleBobble\\textures\\tailbd",
 	},
-	fontText = {"Fonts\\FRIZQT__.TTF", 9},
-	fontSender = {"Fonts\\ARIALN.TTF", 12, "OUTLINE"},
-	showSender = true,
+	fontText = {"Fonts\\FRIZQT__.TTF", 12},
+	fontSender = {"Fonts\\ARIALN.TTF", 14, "OUTLINE"},
+	showSender = false,
 }
 
 -- *****************************************************
@@ -93,6 +94,7 @@ local function SkinFrame(frame)
 		}
 	})
 	frame:SetBackdropBorderColor(unpack(settings.bd.color))
+	frame:SetFrameStrata("TOOLTIP")
 	
 	-- Backdrops have no actual tiling
 	local bg = frame:CreateTexture(nil, "BACKGROUND")
@@ -152,9 +154,9 @@ local function UpdateFrame(frame, guid, name)
 		
 		if name then
 			local color = RAID_CLASS_COLORS[class] or { r = 1, g = 1, b = 1 }
-			frame.sender:SetText(("|cFF%2x%2x%2x%s|r"):format(color.r * 255, color.g * 255, color.b * 255, name))
+			frame.sender:SetText(("|cFF%2x%2x%2x%s|r"):format(color.r * 255, color.g * 255, color.b * 255, Ambiguate(name, "None")))
 			if frame.text:GetWidth() < frame.sender:GetWidth() then
-				frame.text:SetWidth(frame.sender:GetWidth())
+				frame.text:SetWidth(frame.sender:GetWidth() + 2)
 			end
 		end
 	end
